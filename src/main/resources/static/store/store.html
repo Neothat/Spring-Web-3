@@ -21,6 +21,12 @@
                     <label for="filterMaxPrice">Макс. цена</label>
                 </div>
                 <p></p>
+                <div class="form-floating input-group-sm">
+                    <select ng-model="category.name">
+                        <option ng-repeat="category in Categories" value="{{category.name}}">{{category.name}}</option>
+                    </select>
+                </div>
+                <p></p>
                 <button class="btn btn-outline-warning btn-sm" style="width: 100%;" type="submit">Применить</button>
             </form>
         </div>

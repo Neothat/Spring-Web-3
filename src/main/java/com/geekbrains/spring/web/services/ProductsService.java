@@ -19,13 +19,16 @@ import java.util.Optional;
 public class ProductsService {
     private final ProductsRepository productsRepository;
 
-    public Page<Product> findAll(Integer minPrice, Integer maxPrice, String partTitle, Integer page) {
+    public Page<Product> findAll(Integer minPrice, Integer maxPrice, String categoryName, String partTitle, Integer page) {
         Specification<Product> spec = Specification.where(null);
         if (minPrice != null) {
             spec = spec.and(ProductsSpecifications.priceGreaterOrEqualsThan(minPrice));
         }
         if (maxPrice != null) {
             spec = spec.and(ProductsSpecifications.priceLessThanOrEqualsThan(maxPrice));
+        }
+        if (categoryName != null) {
+            spec = spec.and(ProductsSpecifications.categoryLike(categoryName));
         }
         if (partTitle != null) {
             spec = spec.and(ProductsSpecifications.titleLike(partTitle));
