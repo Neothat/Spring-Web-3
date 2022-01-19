@@ -25,7 +25,7 @@ public class Product {
     private Integer price;
 
     @ManyToOne()
-//    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @CreationTimestamp
