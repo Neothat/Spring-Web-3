@@ -13,7 +13,7 @@ public class ProductsSpecifications {
     }
 
     public static Specification<Product> categoryLike(String categoryName){
-        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("category"), String.format("%%%s%%", categoryName));
+        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("category").get("name"), categoryName);
     }
 
     public static Specification<Product> titleLike(String titlePart) {

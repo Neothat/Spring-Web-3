@@ -10,11 +10,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
-
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     public List<Category> findAll(){
-//        return categoryRepository.findAllCategory();
         return categoryRepository.findAll();
     }
 }

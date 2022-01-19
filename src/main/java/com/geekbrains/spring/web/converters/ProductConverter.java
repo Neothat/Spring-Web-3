@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductConverter {
     public Product dtoToEntity(ProductDto productDto) {
-        return new Product(productDto.getId(), productDto.getTitle(), productDto.getPrice());
+        return new Product(productDto.getId(), productDto.getTitle(), productDto.getPrice(), productDto.getCategory());
     }
 
     public ProductDto entityToDto(Product product) {
-        return new ProductDto(product.getId(), product.getTitle(), product.getPrice());
+        return new ProductDto(product.getId(), product.getTitle(), product.getPrice(), product.getCategory());
     }
 }

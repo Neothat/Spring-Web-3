@@ -37,9 +37,10 @@ public class Product {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Product(Long id, String title, Integer price) {
+    public Product(Long id, String title, Integer price, Category category) {
         this.id = id;
         this.title = title;
         this.price = price;
+        this.category = category;
     }
 }

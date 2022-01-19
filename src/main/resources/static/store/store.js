@@ -20,8 +20,8 @@ angular.module('market-front').controller('storeController', function ($scope, $
         $http.get(contextPath + 'api/v1/products/categories')
             .then(function (response) {
                 console.log(response)
-                $scope.Categories = response;
-        });
+                $scope.Categories = response.data;
+            });
 
     };
 
