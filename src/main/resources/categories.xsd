@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:ct="http://www.geekbrains.com/spring/ws/categories"
+        xmlns:pr="http://www.geekbrains.com/spring/ws/products"
+        targetNamespace="http://www.geekbrains.com/spring/ws/categories" elementFormDefault="qualified">
+
+    <xs:import schemaLocation="products.xsd" namespace="http://www.geekbrains.com/spring/ws/products"/>
+
+    <xs:element name="GetCategoryByNameRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetCategoryByNameResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="category" type="ct:CategorySoap"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="CategorySoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="products" maxOccurs="unbounded" type="pr:ProductSoap"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -12,6 +12,10 @@ public class ProductsSpecifications {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("price"), price);
     }
 
+    public static Specification<Product> categoryLike(String categoryName){
+        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("category").get("name"), categoryName);
+    }
+
     public static Specification<Product> titleLike(String titlePart) {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("title"), String.format("%%%s%%", titlePart));
     }

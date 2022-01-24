@@ -9,12 +9,20 @@ angular.module('market-front').controller('storeController', function ($scope, $
                 p: pageIndex,
                 title_part: $scope.filter ? $scope.filter.title_part : null,
                 min_price: $scope.filter ? $scope.filter.min_price : null,
+                category: $scope.filter ? $scope.filter.category : null,
                 max_price: $scope.filter ? $scope.filter.max_price : null
             }
         }).then(function (response) {
             $scope.ProductsPage = response.data;
             $scope.paginationArray = $scope.generatePagesIndexes(1, $scope.ProductsPage.totalPages);
         });
+
+        $http.get(contextPath + 'api/v1/products/categories')
+            .then(function (response) {
+                console.log(response)
+                $scope.Categories = response.data;
+            });
+
     };
 
     $scope.generatePagesIndexes = function (startPage, endPage) {

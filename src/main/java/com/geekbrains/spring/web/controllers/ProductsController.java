@@ -2,13 +2,18 @@ package com.geekbrains.spring.web.controllers;
 
 import com.geekbrains.spring.web.converters.ProductConverter;
 import com.geekbrains.spring.web.dto.ProductDto;
+import com.geekbrains.spring.web.entities.Category;
 import com.geekbrains.spring.web.entities.Product;
 import com.geekbrains.spring.web.exceptions.ResourceNotFoundException;
+import com.geekbrains.spring.web.services.CategoryService;
 import com.geekbrains.spring.web.services.ProductsService;
 import com.geekbrains.spring.web.validators.ProductValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -17,20 +22,27 @@ public class ProductsController {
     private final ProductsService productsService;
     private final ProductConverter productConverter;
     private final ProductValidator productValidator;
+    private final CategoryService categoryService;
 
     @GetMapping
     public Page<ProductDto> getAllProducts(
             @RequestParam(name = "p", defaultValue = "1") Integer page,
             @RequestParam(name = "min_price", required = false) Integer minPrice,
             @RequestParam(name = "max_price", required = false) Integer maxPrice,
+            @RequestParam(name = "category", required = false) String categoryName,
             @RequestParam(name = "title_part", required = false) String titlePart
     ) {
         if (page < 1) {
             page = 1;
         }
-        return productsService.findAll(minPrice, maxPrice, titlePart, page).map(
-                p -> productConverter.entityToDto(p)
+        return productsService.findAll(minPrice, maxPrice, categoryName, titlePart, page).map(
+                productConverter::entityToDto
         );
+    }
+
+    @GetMapping("/categories")
+    public List<String> getAllCategory() {
+        return categoryService.findAll().stream().map(c -> c.getName()).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
